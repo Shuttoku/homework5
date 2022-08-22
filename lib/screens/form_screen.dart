@@ -19,7 +19,7 @@ class FormScreen extends StatelessWidget {
             ), ////
             FlatButton
             (
-              child: Text("เพิ่มข้อมูล123"),
+              child: Text("เพิ่มข้อมูล"),
               color: Colors.pink,
               textColor: Colors.white,
               onPressed: (){
