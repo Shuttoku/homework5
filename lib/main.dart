@@ -1,6 +1,7 @@
-
+import 'package:database1/providers/transaction_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:database1/screens/form_screen.dart';
+import 'package:provider/provider.dart';
 void main() {
   runApp(MyApp());
 }
@@ -8,13 +9,20 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context){
+          return TransactionProvider();
+        }),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.pink,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home:  MyHomePage(title: 'แอพบัญชี'),
       ),
-      home:  MyHomePage(title: 'แอพบัญชี'),
     );
   }
 }
@@ -46,12 +54,18 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body: ListView.builder(itemCount: 4,itemBuilder: (context,int index){
+
+        body: Consumer(
+          builder: (context,TransactionProvider provider, Widget? child){
+                        return ListView.builder(
+              itemCount: provider.transactions.length,
+              itemBuilder: (context, int index){
           return Card(
-            elevation: 5,
+            elevation: 5 ,
             margin: const EdgeInsets.all(10.0),
             child: ListTile(
               leading: CircleAvatar(
+                radius: 50,
                 child: FittedBox(
                 child: Text("200"),
                 ),
@@ -60,6 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
               subtitle: Text("เมนูของ"),
             ),
           );
-        }));
+        });
+          },
+        ));
   }
 }
