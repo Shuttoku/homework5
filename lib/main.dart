@@ -70,11 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: CircleAvatar(
                 radius: 50,
                 child: FittedBox(
-                child: Text("200"),
+                child: Text(data.amount.toString()),
                 ),
                 ),
-              title: Text("รายการ"),
-              subtitle: Text("เมนูของ"),
+              title: Text(data.title),
+              subtitle: Text(data.date.toString()),
             ),
           );
         });
